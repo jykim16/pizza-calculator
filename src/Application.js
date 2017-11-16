@@ -30,6 +30,23 @@ export default class Application extends Component {
 
   render() {
     const { numberOfPeople, slicesPerPerson } = this.state;
+    return (
+      <div className="Application">
+        <Pizza
+          numberOfPeople={numberOfPeople}
+          slicesPerPerson={slicesPerPerson}
+          updateSlicesPerPerson={this.updateSlicesPerPerson}
+          updateNumberOfPeople={this.updateNumberOfPeople}
+          reset={this.reset}
+        />
+      </div>
+    );
+  }
+}
+
+class Pizza extends Component {
+  render() {
+    const { numberOfPeople, slicesPerPerson, updateNumberOfPeople, updateSlicesPerPerson, reset } = this.props;
     const numberOfPizzas = calculatePizzasNeeded(
       numberOfPeople,
       slicesPerPerson,
@@ -43,17 +60,17 @@ export default class Application extends Component {
           type="number"
           min={0}
           value={numberOfPeople}
-          onChange={this.updateNumberOfPeople}
+          onChange={updateNumberOfPeople}
         />
         <Input
           label="Slices Per Person"
           type="number"
           min={0}
           value={slicesPerPerson}
-          onChange={this.updateSlicesPerPerson}
+          onChange={updateSlicesPerPerson}
         />
         <Result amount={numberOfPizzas} />
-        <button className="full-width" onClick={this.reset}>
+        <button className="full-width" onClick={reset}>
           Reset
         </button>
       </div>
